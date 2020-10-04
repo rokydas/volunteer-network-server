@@ -8,9 +8,9 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-const user = 'volunteer-admin';
-const userPassword = 'UfVwJocCaHN9yzI2';
-const dbName = 'volunteer-network';
+const user = process.env.USER;
+const userPassword = process.env.USER_PASSWORD;
+const dbName = process.env.DB_NAME;
 const eventCollection = 'event';
 
 const MongoClient = require('mongodb').MongoClient;
@@ -41,4 +41,4 @@ client.connect(err => {
 
 
 
-app.listen(5000); 
+app.listen(process.env.port || 5000); 
