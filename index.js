@@ -1,7 +1,8 @@
 const express = require('express'); 
 const bodyParser = require('body-parser'); 
 const cors = require('cors');
-require('dotenv').config()
+require('dotenv').config();
+const ObjectId = require('mongodb').ObjectID;
 
 const app = express(); 
 // skejfkf
@@ -37,7 +38,7 @@ client.connect(err => {
         // console.log(registeredEvent);
         RegisteredEventCollection.insertOne(registeredEvent)
         .then(result => {
-            res.send(result.insertedCount)
+            res.send(result.insertedCount > 0)
         })
     })
 
@@ -56,6 +57,15 @@ client.connect(err => {
         RegisteredEventCollection.find({})
         .toArray((err, documents) => {
             res.send(documents);
+        })
+    })
+
+    app.delete('/delete/:id', (req, res) => {
+        console.log(req.params.id)
+        RegisteredEventCollection.deleteOne({_id: ObjectId(req.params.id)})
+        .then(result => {
+          console.log(result);
+          res.send(result.deletedCount > 0);
         })
     })
 
