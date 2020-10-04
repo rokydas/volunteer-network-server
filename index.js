@@ -28,6 +28,10 @@ client.connect(err => {
     //         res.send(result.insertedCount)
     //     })
     // })
+
+    app.get('/', (req, res) => {
+        res.send("What's up BABY? I am here");
+    })
     
     app.get('/events', (req, res) => {
         collection.find({})
