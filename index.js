@@ -45,7 +45,7 @@ client.connect(err => {
         res.send("Hey, It is created by Roky Vhai.");
     })
     
-    app.get('/events', (req, res) => {
+    app.get('/event', (req, res) => {
         eventCollection.find({})
         .toArray((err, documents) => {
             res.send(documents);
