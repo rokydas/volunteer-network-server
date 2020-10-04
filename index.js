@@ -7,17 +7,21 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+require('dotenv').config()
 
 const user = process.env.USER;
 const userPassword = process.env.USER_PASSWORD;
 const dbName = process.env.DB_NAME;
-const eventCollection = 'event';
+const eventCollection = 'event'; 
 
 const MongoClient = require('mongodb').MongoClient;
 const uri = `mongodb+srv://${user}:${userPassword}@cluster0.vetwi.mongodb.net/${dbName}?retryWrites=true&w=majority`;
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+const client = new MongoClient(uri, { useUnifiedTopology: true}, { useNewUrlParser: true });
+
 client.connect(err => {
     const collection = client.db(dbName).collection(eventCollection);
+    console.log(user, userPassword, dbName, eventCollection)
 
     // app.post('/addEvent', (req, res) => {
     //     const event = req.body;
@@ -45,4 +49,4 @@ client.connect(err => {
 
 
 
-app.listen(process.env.port || 5000); 
+app.listen(5000); 
